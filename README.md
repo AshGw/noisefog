@@ -1,3 +1,3 @@
 ```shell
-g cl git@github.com:AshGw/noisefog.git && j s && j b && e .
+g cl git@github.com:AshGw/noisefog.git && noisefog && j s && j b && e .
 ```
