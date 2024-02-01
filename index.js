@@ -21,9 +21,9 @@ class ElevationColor {
     }
   }
 
+const tmp = new NoiseMapJS();
 const gui = new dat.GUI({ autoPlace: false });
 document.getElementById("controls").appendChild(gui.domElement);
-const tmp = new NoiseMapJS();
 const widthControl = gui.add(tmp, 'width').min(0);
 const heightControl = gui.add(tmp, 'height').min(0);
 const scaleControl = gui.add(tmp, 'scale').min(0).step(1);
@@ -44,7 +44,7 @@ let colors = [ new ElevationColor([0,79,163], 0.3)
 let colorControllers = [];
 const colorsGui = new dat.GUI({ autoPlace: false });
 document.getElementById("colors").appendChild(colorsGui.domElement);
-colors.forEach((elevationColor, idx) => {
+colors.forEach((elevationColor) => {
   colorControllers.push(colorsGui.addColor(elevationColor, 'color'));
   colorControllers.push(colorsGui.add(elevationColor, 'height'));
 });
