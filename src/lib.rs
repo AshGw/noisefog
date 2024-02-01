@@ -4,7 +4,6 @@ pub mod noise_map;
 use funcs::{clamp, euclidean_distance, invlerp, lerp};
 use noise_map::NoiseMap;
 
-use lerp::Lerp;
 use noise::{NoiseFn, Perlin, Seedable};
 use wasm_bindgen::prelude::*;
 
@@ -108,28 +107,4 @@ impl NoiseMap {
     pub fn min_value(&self) -> f64 {
         self.min_value
     }
-}
-
-pub fn write_grid_to_file(
-    grid: &[Vec<f64>],
-    path: &str,
-) -> std::io::Result<()> {
-    let file = std::fs::File::create(path)?;
-    let png_encoder = image::png::PNGEncoder::new(file);
-    let width = grid[0].len();
-    let height = grid.len();
-    let lerp_grid: Vec<Vec<u8>> = (0..height)
-        .map(|i| {
-            (0..width)
-                .map(|j| 128_f64.lerp(255.0, grid[j][i]) as u8)
-                .collect()
-        })
-        .collect();
-
-    png_encoder.encode(
-        &lerp_grid.concat(),
-        grid[0].len() as u32,
-        grid.len() as u32,
-        image::ColorType::Gray(8),
-    )
 }

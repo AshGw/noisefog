@@ -222,15 +222,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "lerp"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eac7d857dfade0c90b0c0d942d02acade23712d233c26f677e68a392e4454e69"
-dependencies = [
- "num-traits 0.1.43",
-]
-
-[[package]]
 name = "libc"
 version = "0.2.153"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -263,7 +254,6 @@ name = "noisefog"
 version = "0.1.0"
 dependencies = [
  "image 0.22.5",
- "lerp",
  "noise",
  "rand 0.7.3",
  "wasm-bindgen",

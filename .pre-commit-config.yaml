@@ -22,9 +22,3 @@ repos:
     types: [rust]
     language: system
     pass_filenames: false
-  - id: test
-    name: Test
-    entry: cargo test
-    types: [rust]
-    language: system
-    pass_filenames: false
