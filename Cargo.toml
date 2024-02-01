@@ -1,13 +1,12 @@
 [package]
-name = "noise"
+name = "noisefog"
 version = "0.1.0"
 edition = "2021"
 
 
 [dependencies]
 wasm-bindgen = "0.2"
-noise = "0.8.2"
-image = "0.24.8"
-lerp = "0.5.0"
-rand = { version = "0.8.5", features = ["wasm-bindgen"] }
-wee_alloc = { version = "0.4.2", optional = true }
+noise = "0.6.0"
+image = "0.22.2"
+lerp = "0.2.0"
+rand = { version = "0.7.2", features = ["wasm-bindgen"] }
