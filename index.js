@@ -1,20 +1,25 @@
-import { NoiseMap } from "noisefog";
-import { lerp, invlerp } from "noisefog";
-
+import * as nf from "noisefog";
 import * as dat from 'dat.gui';
 
 const CELL_SIZE = 1;
 
-var NoiseMapJS = function() {
-  this.width = 500;
-  this.height = 500;
-  this.scale = 180;
-  this.octaves = 6;
-  this.lacunarity = 2;
-  this.persistence = 0.5;
-  this.grayscale = false;
-  this.reshape = true;
+class NoiseMapJS {
+  width = 500;
+  height = 500;
+  scale = 180;
+  octaves = 6;
+  lacunarity = 2;
+  persistence = 0.5;
+  grayscale = false;
+  reshape = true;
 };
+
+class ElevationColor {
+    constructor(color, height) {
+      this.color = color;
+      this.height = height;
+    }
+  }
 
 const gui = new dat.GUI({ autoPlace: false });
 document.getElementById("controls").appendChild(gui.domElement);
@@ -28,12 +33,7 @@ const persistenceControl = gui.add(tmp, 'persistence').min(0).step(0.01);
 const grayscaleControl = gui.add(tmp, 'grayscale');
 const reshapeControl = gui.add(tmp, 'reshape');
 
-var ElevationColor = function(color, height) {
-  this.color = color;
-  this.height = height;
-};
-
-var colors = [ new ElevationColor([0,79,163], 0.3)
+let colors = [ new ElevationColor([0,79,163], 0.3)
              , new ElevationColor([66,135,245], 0.4)
              , new ElevationColor([34,201,101], 0.65)
              , new ElevationColor([105,55,6], 0.73)
@@ -41,7 +41,7 @@ var colors = [ new ElevationColor([0,79,163], 0.3)
              , new ElevationColor([255,255,255], 1.0)
              ];
 
-const colorControllers = [];
+let colorControllers = [];
 const colorsGui = new dat.GUI({ autoPlace: false });
 document.getElementById("colors").appendChild(colorsGui.domElement);
 colors.forEach((elevationColor, idx) => {
@@ -49,8 +49,8 @@ colors.forEach((elevationColor, idx) => {
   colorControllers.push(colorsGui.add(elevationColor, 'height'));
 });
 
-const regenMap = () => {
-  const map = NoiseMap.new(widthControl.getValue(),
+function regenMap () {
+  const map = nf.NoiseMap.new(widthControl.getValue(),
     heightControl.getValue(),
     scaleControl.getValue(),
     octavesControl.getValue(),
@@ -70,17 +70,17 @@ const regenMap = () => {
   canvas.height = height*CELL_SIZE;
   const ctx = canvas.getContext('2d');
 
-  const getCoord = (idx) => {
+  function getCoord (idx) {
     return [Math.floor(idx / width), idx % width];
   };
 
-  const render = () => {
+  function render() {
     noise.forEach((noiseValue, idx) => {
       const [y, x] = getCoord(idx);
 
-      const amount = invlerp(minNoiseVal, maxNoiseVal, noiseValue);
+      const amount = nf.invlerp(minNoiseVal, maxNoiseVal, noiseValue);
       if (grayscaleControl.getValue() == true) {
-        const grayScale = lerp(0, 255, amount);
+        const grayScale = nf.lerp(0, 255, amount);
         ctx.fillStyle = `rgb(${grayScale}, ${grayScale}, ${grayScale})`;
       } else {
         var cellColor = colors.slice().reverse()
@@ -105,5 +105,4 @@ lacunarityControl.onFinishChange(regenMap);
 persistenceControl.onFinishChange(regenMap);
 grayscaleControl.onFinishChange(regenMap);
 reshapeControl.onFinishChange(regenMap);
-
-colorControllers.forEach((controller, idx) => controller.onFinishChange(regenMap));
+colorControllers.forEach((controller) => controller.onFinishChange(regenMap));
