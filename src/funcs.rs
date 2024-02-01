@@ -1,4 +1,7 @@
-pub fn euclidean_distance(p1: (f64, f64), p2: (f64, f64)) -> f64 {
+
+type FpTuple = (f64, f64); 
+
+pub fn euclidean_distance(p1: FpTuple, p2: FpTuple) -> f64 {
     ((p1.0 - p2.0).powi(2) + (p1.1 - p2.1).powi(2)).sqrt()
 }
 

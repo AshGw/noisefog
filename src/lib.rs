@@ -23,13 +23,12 @@ impl NoiseMap {
         let (center_x, center_y) = (width as f64 / 2.0, height as f64 / 2.0);
         let max_distance_from_center = euclidean_distance((0.0, 0.0),
             (center_x, center_y));
-
         let noise = Perlin::new();
-        noise.set_seed(rand::random());
-
         let mut noise_map =Vec::with_capacity(height);
         let mut max_value = std::f64::MIN;
         let mut min_value = std::f64::MAX;
+        noise.set_seed(rand::random());
+        
 
         for y in 0..height {
             let mut row = Vec::with_capacity(width);
