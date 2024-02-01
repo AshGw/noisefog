@@ -1,23 +1,11 @@
 pub mod funcs;
+pub mod noise_map;
+pub use noise_map::NoiseMap;
 use funcs::{euclidean_distance,lerp,invlerp,clamp};
 use wasm_bindgen::prelude::*;
 
 use noise::{Seedable, NoiseFn, Perlin};
 use lerp::Lerp;
-
-
-#[wasm_bindgen]
-pub struct NoiseMap {
-    width: usize,
-    height: usize,
-    scale: f64,
-    octaves: u8,
-    lacunarity: f64,
-    persistence: f64,
-    max_value: f64,
-    min_value: f64,
-    map: Vec<f64>
-}
 
 
 #[wasm_bindgen]
@@ -39,7 +27,7 @@ impl NoiseMap {
         let noise = Perlin::new();
         noise.set_seed(rand::random());
 
-        let mut noise_map = Vec::with_capacity(height);
+        let mut noise_map =Vec::with_capacity(height);
         let mut max_value = std::f64::MIN;
         let mut min_value = std::f64::MAX;
 
