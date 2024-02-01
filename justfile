@@ -6,7 +6,7 @@ alias h:= set-hooks
     rustup component add clippy-preview
     pip install pre-commit
     cargo build
-    
+
 @build:
     cargo install wasm-pack
     wasm-pack build --target bundler
@@ -16,6 +16,9 @@ alias h:= set-hooks
 @serve:
     npm run serve
 
+@clean:
+    rm -rf Cargo.lock pkg target node_modules dist package-lock.json
+    
 @set-hooks:
     pre-commit
     bash ./hooks/pre-push
