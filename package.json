@@ -4,6 +4,7 @@
         "serve": "webpack serve"
     },
     "dependencies": {
+        "dat.gui": "^0.7.6",
         "noisefog": "file:./pkg"
     },
     "devDependencies": {

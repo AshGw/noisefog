@@ -1,7 +1,7 @@
 pub mod funcs;
 pub mod noise_map;
 
-use funcs::{clamp, euclidean_distance, invlerp, lerp};
+use funcs::Funcs;
 use noise_map::NoiseMap;
 
 use noise::{NoiseFn, Perlin, Seedable};
@@ -20,7 +20,7 @@ impl NoiseMap {
     ) -> NoiseMap {
         let (center_x, center_y) = (width as f64 / 2.0, height as f64 / 2.0);
         let max_distance_from_center =
-            euclidean_distance((0.0, 0.0), (center_x, center_y));
+            Funcs::euclidean_distance((0.0, 0.0), (center_x, center_y));
         let noise = Perlin::new();
         let mut noise_map = Vec::with_capacity(height);
         let mut max_value = std::f64::MIN;
@@ -42,17 +42,17 @@ impl NoiseMap {
                 }
 
                 if reshape {
-                    let distance_to_map_center = euclidean_distance(
+                    let distance_to_map_center = Funcs::euclidean_distance(
                         (x as f64, y as f64),
                         (center_x, center_y),
                     );
-                    let d = invlerp(
+                    let d = Funcs::invlerp(
                         0.0,
                         max_distance_from_center,
                         distance_to_map_center,
                     );
-                    let d = -lerp(-1.0, 1.0, d);
-                    noise_val = clamp(noise_val + d, 0.0, 1.0);
+                    let d = -Funcs::lerp(-1.0, 1.0, d);
+                    noise_val = Funcs::clamp(noise_val + d, 0.0, 1.0);
                 }
 
                 row.push(noise_val);
