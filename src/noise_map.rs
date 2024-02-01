@@ -1,5 +1,5 @@
+use std::marker::Copy;
 use wasm_bindgen::prelude::*;
-use std::marker::Copy; 
 
 #[wasm_bindgen]
 pub struct NoiseMap {
@@ -12,6 +12,5 @@ pub struct NoiseMap {
     pub max_value: f64,
     pub min_value: f64,
     #[wasm_bindgen(skip)]
-    pub map: Vec<f64>
+    pub map: Vec<f64>,
 }
-

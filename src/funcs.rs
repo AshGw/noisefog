@@ -1,5 +1,4 @@
-
-type FpTuple = (f64, f64); 
+type FpTuple = (f64, f64);
 
 pub fn euclidean_distance(p1: FpTuple, p2: FpTuple) -> f64 {
     ((p1.0 - p2.0).powi(2) + (p1.1 - p2.1).powi(2)).sqrt()
@@ -16,5 +15,3 @@ pub fn invlerp(a: f64, b: f64, v: f64) -> f64 {
 pub fn clamp(v: f64, min: f64, max: f64) -> f64 {
     max.min(min.max(v))
 }
-
-
