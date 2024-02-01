@@ -71,7 +71,7 @@ impl NoiseMap {
             persistence,
             max_value,
             min_value,
-            map: noise_map.concat() // flatten the 2D into a 1D for WASM interop.
+            map: noise_map.concat() 
         }
     }
 
@@ -91,15 +91,14 @@ pub fn write_grid_to_file(grid: &[Vec<f64>], path: &str) -> std::io::Result<()> 
     let png_encoder = image::png::PNGEncoder::new(file);
     let width = grid[0].len();
     let height = grid.len();
-    let mut lerp_grid = Vec::with_capacity(height);
-    for i in 0..height {
-        let mut row = Vec::with_capacity(width);
-        for j in 0..width {
-            let val = 128_f64.lerp(255.0, grid[j][i]);
-            row.push(val as u8);
-        }
-        lerp_grid.push(row);
-    }
+    let lerp_grid: Vec<Vec<u8>> = (0..height)
+    .map(|i| {
+        (0..width)
+            .map(|j| 128_f64.lerp(255.0, grid[j][i]) as u8)
+            .collect()
+    })
+    .collect();
+
     png_encoder.encode(&lerp_grid.concat(),
                        grid[0].len() as u32,
                        grid.len() as u32,
