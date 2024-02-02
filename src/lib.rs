@@ -9,6 +9,7 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 impl NoiseMap {
+    #[wasm_bindgen(constructor)]
     pub fn new(
         width: usize,
         height: usize,
