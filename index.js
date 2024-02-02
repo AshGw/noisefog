@@ -83,9 +83,9 @@ function regenMap () {
         const grayScale = nf.lerp(0, 255, amount);
         ctx.fillStyle = `rgb(${grayScale}, ${grayScale}, ${grayScale})`;
       } else {
-        var cellColor = colors.slice().reverse()
+        let cellColor = colors.slice().reverse()
           .reduce((accum, next) => amount <= next.height ? next : accum);
-        var red = cellColor.color[0], green = cellColor.color[1], blue = cellColor.color[2];
+        let red = cellColor.color[0], green = cellColor.color[1], blue = cellColor.color[2];
         ctx.fillStyle = `rgb(${red},${green},${blue})`;
       }
       ctx.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
